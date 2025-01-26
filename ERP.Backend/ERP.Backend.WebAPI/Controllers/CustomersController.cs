@@ -1,4 +1,5 @@
-﻿using ERP.Backend.WebAPI.Abstractions;
+﻿using ERP.Backend.Application.Features.Customers.GetAllCustomer;
+using ERP.Backend.WebAPI.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,14 @@ namespace ERP.Backend.WebAPI.Controllers
                 return Ok(response); 
             }
             return NotFound("Data not found.");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(GetAllCustomerQuery request, CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(request, cancellationToken);
+
+            return StatusCode(response.StatusCode, response);
         }
 
     }
