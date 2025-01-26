@@ -7,7 +7,17 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDefaultCors();
+// CORS ayarlarýný ekleyin
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()        
+              .AllowAnyMethod()       
+              .AllowAnyHeader();       
+    });
+});
+
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -25,7 +35,7 @@ builder.Services.AddSwaggerGen(setup =>
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.Http,
         Scheme = JwtBearerDefaults.AuthenticationScheme,
-        Description = "Put **_ONLY_** yourt JWT Bearer token on textbox below!",
+        Description = "Put **_ONLY_** your JWT Bearer token in the textbox below!",
 
         Reference = new OpenApiReference
         {
@@ -52,7 +62,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors();
+app.UseCors("AllowAll");
 
 app.UseExceptionHandler();
 
