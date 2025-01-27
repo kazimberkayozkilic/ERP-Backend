@@ -1,4 +1,5 @@
-﻿using ERP.Backend.Application.Features.Customers.GetAllCustomer;
+﻿using ERP.Backend.Application.Features.Customers.CreateCustomer;
+using ERP.Backend.Application.Features.Customers.GetAllCustomer;
 using ERP.Backend.WebAPI.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace ERP.Backend.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(GetAllCustomerQuery request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(request, cancellationToken);
 
