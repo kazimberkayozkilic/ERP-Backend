@@ -12,15 +12,11 @@ namespace ERP.Backend.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetAll(GetAllCustomersQuery request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAll(GetAllCustomerQuery request, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(request, cancellationToken);
 
-            if (response != null)
-            {
-                return Ok(response); 
-            }
-            return NotFound("Data not found.");
+            return StatusCode(response.StatusCode, response);
         }
 
         [HttpPost]
