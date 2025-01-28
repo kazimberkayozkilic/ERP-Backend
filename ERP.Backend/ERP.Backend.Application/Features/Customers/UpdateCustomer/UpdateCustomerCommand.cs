@@ -8,6 +8,6 @@ using TS.Result;
 
 namespace ERP.Backend.Application.Features.Customers.UpdateCustomer
 {
-    public sealed record UpdateCustomerCommand(string Name, string TaxDepartment, string TaxNumber, string City, string Town, string FullAddress) : IRequest<Result<string>>;
+    public sealed record UpdateCustomerCommand(Guid Id ,string Name, string TaxDepartment, string TaxNumber, string City, string Town, string FullAddress) : IRequest<Result<string>>;
    
 }
