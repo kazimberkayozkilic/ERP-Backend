@@ -1,0 +1,28 @@
+﻿using ERP.Backend.Domain.Entities;
+using ERP.Backend.Domain.Repositories;
+using GenericRepository;
+using MediatR;
+using TS.Result;
+
+namespace ERP.Backend.Application.Features.Depots.DeleteDepotById
+{
+    internal sealed class DeleteDepotByIdCommandHandler(
+    IDepotRepository depotRepository,
+    IUnitOfWork unitOfWork) : IRequestHandler<DeleteDepotByIdCommand, Result<string>>
+    {
+        public async Task<Result<string>> Handle(DeleteDepotByIdCommand request, CancellationToken cancellationToken)
+        {
+            Depot depot = await depotRepository.GetByExpressionAsync(p => p.Id == request.Guid, cancellationToken);
+
+            if (depot is null)
+            {
+                return Result<string>.Failure("Depo bulunamadı");
+            }
+
+            depotRepository.Delete(depot);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
+
+            return "Depo başarıyla silindi";
+        }
+    }
+}
