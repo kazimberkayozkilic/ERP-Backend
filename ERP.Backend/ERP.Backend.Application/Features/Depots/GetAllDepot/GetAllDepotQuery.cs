@@ -9,6 +9,6 @@ using TS.Result;
 
 namespace ERP.Backend.Application.Features.Depots.GetAllDepot
 {
-    public sealed record GetAllDepotQuery() : IRequest<Result<List<Depot>>>
+    public sealed record GetAllDepotQuery() : IRequest<Result<List<Depot>>>;
     
 }

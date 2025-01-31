@@ -8,6 +8,6 @@ using TS.Result;
 
 namespace ERP.Backend.Application.Features.Depots.DeleteDepotById
 {
-    public sealed record DeleteDepotByIdCommand(Guid Guid): IRequest<Result<string>>;
+    public sealed record DeleteDepotByIdCommand(Guid Id): IRequest<Result<string>>;
     
 }

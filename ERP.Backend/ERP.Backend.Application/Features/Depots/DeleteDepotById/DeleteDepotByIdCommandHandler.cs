@@ -12,7 +12,7 @@ namespace ERP.Backend.Application.Features.Depots.DeleteDepotById
     {
         public async Task<Result<string>> Handle(DeleteDepotByIdCommand request, CancellationToken cancellationToken)
         {
-            Depot depot = await depotRepository.GetByExpressionAsync(p => p.Id == request.Guid, cancellationToken);
+            Depot depot = await depotRepository.GetByExpressionAsync(p => p.Id == request.Id, cancellationToken);
 
             if (depot is null)
             {
