@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace ERP.Backend.Domain.Entities
 {
-    public sealed class Recipe: Entity
+    public sealed class RecipeDetail: Entity
     {
+        public Guid RecipeId { get; set; }
         public Guid ProductId { get; set; }
-        public List<RecipeDetail>? RecipeDetails { get; set; }
+        public Product? Product { get; set; }
+        public int Quantity { get; set; }
     }
 }
