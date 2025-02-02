@@ -14,7 +14,7 @@ namespace ERP.Backend.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<RecipeDetail> builder)
         {
-            throw new NotImplementedException();
+            builder.Property(p => p.Quantity).HasColumnType("decimal(7,2)");
         }
     }
 }
