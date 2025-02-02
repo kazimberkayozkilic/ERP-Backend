@@ -14,7 +14,7 @@ namespace ERP.Backend.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Recipe> builder)
         {
-            throw new NotImplementedException();
+           
         }
     }
 }
