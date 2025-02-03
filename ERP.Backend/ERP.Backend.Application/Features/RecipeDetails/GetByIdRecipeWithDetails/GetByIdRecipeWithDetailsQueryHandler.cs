@@ -4,13 +4,13 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TS.Result;
 
-namespace ERP.Backend.Application.Features.Recipes.GetByIdRecipeWithDetails
+namespace ERP.Backend.Application.Features.RecipeDetails.GetByIdRecipeWithDetails
 {
     internal sealed class GetByIdRecipeWithDetailsQueryHandler(IRecipeRepository recipeRepository) : IRequestHandler<GetByIdRecipeWithDetailsQuery, Result<Recipe>>
     {
         public async Task<Result<Recipe>> Handle(GetByIdRecipeWithDetailsQuery request, CancellationToken cancellationToken)
         {
-            Recipe? recipe= await recipeRepository.Where(p=> p.Id == request.Id)
+            Recipe? recipe = await recipeRepository.Where(p => p.Id == request.Id)
                 .Include(p => p.Product)
                 .Include(p => p.RecipeDetails!)
                 .ThenInclude(p => p.Product)
@@ -21,7 +21,7 @@ namespace ERP.Backend.Application.Features.Recipes.GetByIdRecipeWithDetails
                 return Result<Recipe>.Failure("Ürüne ait reçete bilgisi bulunamadı.");
             }
 
-                return recipe;
+            return recipe;
         }
     }
 }

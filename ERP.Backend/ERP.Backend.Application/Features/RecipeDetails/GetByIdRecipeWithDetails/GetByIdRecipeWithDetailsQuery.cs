@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TS.Result;
 
-namespace ERP.Backend.Application.Features.Recipes.GetByIdRecipeWithDetails
+namespace ERP.Backend.Application.Features.RecipeDetails.GetByIdRecipeWithDetails
 {
     public sealed record GetByIdRecipeWithDetailsQuery(Guid Id) : IRequest<Result<Recipe>>;
 
