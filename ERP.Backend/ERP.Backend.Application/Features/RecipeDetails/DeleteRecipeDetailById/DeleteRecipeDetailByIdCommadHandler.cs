@@ -1,4 +1,5 @@
 ﻿using ERP.Backend.Domain.Entities;
+using ERP.Backend.Domain.Repositories;
 using GenericRepository;
 using MediatR;
 using System;

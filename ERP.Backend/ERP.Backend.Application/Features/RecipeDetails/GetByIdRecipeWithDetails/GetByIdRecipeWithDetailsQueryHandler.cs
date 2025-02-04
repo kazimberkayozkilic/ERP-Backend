@@ -12,7 +12,7 @@ namespace ERP.Backend.Application.Features.RecipeDetails.GetByIdRecipeWithDetail
         {
             Recipe? recipe = await recipeRepository.Where(p => p.Id == request.Id)
                 .Include(p => p.Product)
-                .Include(p => p.RecipeDetails!)
+                .Include(p => p.Details!)
                 .ThenInclude(p => p.Product)
                 .FirstOrDefaultAsync(cancellationToken);
 

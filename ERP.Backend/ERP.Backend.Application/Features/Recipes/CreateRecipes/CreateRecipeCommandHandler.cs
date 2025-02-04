@@ -23,7 +23,7 @@ namespace ERP.Backend.Application.Features.Recipes.CreateRecipes
             Recipe recipe = new()
             {
                 ProductId = request.ProductId,
-                RecipeDetails = request.Details.Select(p => new RecipeDetail()
+                Details = request.Details.Select(p => new RecipeDetail()
                 {
                     ProductId = p.ProductId,
                     Quantity = p.Quantity

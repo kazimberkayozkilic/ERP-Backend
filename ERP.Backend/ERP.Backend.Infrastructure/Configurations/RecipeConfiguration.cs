@@ -14,7 +14,7 @@ namespace ERP.Backend.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Recipe> builder)
         {
-           
+           builder.HasOne(p=>p.Product).WithMany().OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
