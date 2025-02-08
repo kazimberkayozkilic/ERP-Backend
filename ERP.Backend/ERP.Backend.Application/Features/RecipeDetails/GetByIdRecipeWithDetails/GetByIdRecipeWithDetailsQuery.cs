@@ -9,6 +9,6 @@ using TS.Result;
 
 namespace ERP.Backend.Application.Features.RecipeDetails.GetByIdRecipeWithDetails
 {
-    public sealed record GetByIdRecipeWithDetailsQuery(Guid Id) : IRequest<Result<Recipe>>;
+    public sealed record GetByIdRecipeWithDetailsQuery(Guid RecipeId) : IRequest<Result<Recipe>>;
 
 }

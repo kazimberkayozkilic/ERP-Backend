@@ -10,7 +10,7 @@ namespace ERP.Backend.Application.Features.RecipeDetails.GetByIdRecipeWithDetail
     {
         public async Task<Result<Recipe>> Handle(GetByIdRecipeWithDetailsQuery request, CancellationToken cancellationToken)
         {
-            Recipe? recipe = await recipeRepository.Where(p => p.Id == request.Id)
+            Recipe? recipe = await recipeRepository.Where(p => p.Id == request.RecipeId)
                 .Include(p => p.Product)
                 .Include(p => p.Details!)
                 .ThenInclude(p => p.Product)
