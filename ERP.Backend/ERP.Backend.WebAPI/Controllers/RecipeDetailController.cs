@@ -1,7 +1,7 @@
-﻿using ERP.Backend.Application.Features.RecipeDetails.DeleteRecipeDetailById;
+﻿using ERP.Backend.Application.Features.RecipeDetails.CreateRecipeDetail;
+using ERP.Backend.Application.Features.RecipeDetails.DeleteRecipeDetailById;
 using ERP.Backend.Application.Features.RecipeDetails.GetByIdRecipeWithDetails;
 using ERP.Backend.Application.Features.RecipeDetails.UpdateRecipeDetail;
-using ERP.Backend.Application.Features.Recipes.CreateRecipes;
 using ERP.Backend.WebAPI.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +23,7 @@ namespace ERP.Backend.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateRecipeCommand request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create(CreateRecipeDetailCommand request, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(request, cancellationToken);
 
