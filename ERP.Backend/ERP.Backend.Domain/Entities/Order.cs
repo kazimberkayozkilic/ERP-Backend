@@ -16,5 +16,6 @@ namespace ERP.Backend.Domain.Entities
         public DateTime Date{ get; set; }
         public DateTime DeliveryDate{ get; set; }
         public OrderStatüsEnum Status { get; set; } = OrderStatüsEnum.Pending;
+        public List<OrderDetail>? Details { get; set; }
     }
 }
