@@ -8,5 +8,5 @@ using TS.Result;
 
 namespace ERP.Backend.Application.Features.Orders.DeleteOrder
 {
-    public sealed record DeleteOrderByIdCommandcs(Guid Id): IRequest<Result<string>>;
+    public sealed record DeleteOrderByIdCommand(Guid Id): IRequest<Result<string>>;
 }
