@@ -22,6 +22,7 @@ namespace ERP.Backend.Infrastructure.Context
 
 
 
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(typeof(DependencyInjection).Assembly);
