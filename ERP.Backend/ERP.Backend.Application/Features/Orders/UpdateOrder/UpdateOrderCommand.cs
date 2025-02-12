@@ -9,6 +9,6 @@ using TS.Result;
 
 namespace ERP.Backend.Application.Features.Orders.UpdateOrder
 {
-    public sealed record class UpdateOrderCommand(Guid Id, Guid CustomerId, DateTime Date, DateTime DaliveryDate, List<OrderDetailDto> Details): IRequest<Result<string>>;
+    public sealed record class UpdateOrderCommand(Guid Id, Guid CustomerId, DateOnly Date, DateOnly DaliveryDate, List<OrderDetailDto> Details): IRequest<Result<string>>;
  
 }
