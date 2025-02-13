@@ -13,19 +13,41 @@ using TS.Result;
 
 namespace ERP.Backend.Application.Features.Orders.UpdateOrder
 {
-    internal sealed class UpdateOrderCommandHandler(IOrderReporsitory orderReporsitory, IOrderDetailRepository orderDetailRepository , IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<UpdateOrderCommand, Result<string>>
+    internal sealed class UpdateOrderCommandHandler(IOrderReporsitory orderReporsitory, IOrderDetailRepository orderDetailRepository, IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<UpdateOrderCommand, Result<string>>
     {
         public async Task<Result<string>> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
-            Order? order = await orderReporsitory.Where(p => p.Id == request.Id).Include(p => p.Details).FirstOrDefaultAsync();
-            if ( order is null ) {
-                return Result<string>.Failure("Sipariş bulunamadı.");
+            Order? order =
+            await orderReporsitory
+            .Where(p => p.Id == request.Id)
+            .Include(p => p.Details)
+            .FirstOrDefaultAsync();
+
+            if (order is null)
+            {
+                return Result<string>.Failure("Sipariş bulunamadı");
             }
+
             orderDetailRepository.DeleteRange(order.Details);
+
+            List<OrderDetail> newDetails = request.Details.Select(s => new OrderDetail
+            {
+                OrderId = order.Id,
+                Price = s.Price,
+                ProductId = s.ProductId,
+                Quantity = s.Quantity
+            }).ToList();
+
+            await orderDetailRepository.AddRangeAsync(newDetails, cancellationToken);
+
             mapper.Map(request, order);
+
+            orderReporsitory.Update(order);
+
             await unitOfWork.SaveChangesAsync();
-            return "Sipariş basarıyla güncellendi.";
-           
+
+            return "Sipariş başarıyla güncellendi";
+
         }
     }
 }
