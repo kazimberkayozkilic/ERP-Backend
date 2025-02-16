@@ -19,6 +19,7 @@ namespace ERP.Backend.Infrastructure.Context
         public DbSet<RecipeDetail> RecipeDetails{ get; set; }
         public DbSet<Order> Orders{ get; set; }
         public DbSet<OrderDetail> OrderDetails{ get; set; }
+        public DbSet<StockMovement> StockMovement { get; set; }
 
 
 
