@@ -21,6 +21,7 @@ namespace ERP.Backend.Application.Features.Orders.RequirementsPlanningByOrderId
             {
                 return Result<RequirementsPlanningByOrderIdCommandResponse>.Failure("Sipariş bulunamadı");
             }
+            return new RequirementsPlanningByOrderIdCommandResponse(DateOnly.FromDateTime(DateTime.Now), order.Number + "Nolu Siparişin İhtiyaç Planlaması", new());
         }
     }
 }
