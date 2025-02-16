@@ -8,9 +8,7 @@ using TS.Result;
 
 namespace ERP.Backend.Application.Features.Orders.RequirementsPlanningByOrderId
 {
-    public sealed record RequirementsPlanningByOrderIdCommand
-    {
+    public sealed record RequirementsPlanningByOrderIdCommand(Guid Id) : IRequest<Result<RequirementsPlanningByOrderIdCommandResponse>>;
 
-    }
     
 }
