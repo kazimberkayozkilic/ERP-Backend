@@ -5,6 +5,7 @@ using ERP.Backend.Application.Features.Customers.UpdateCustomer;
 using ERP.Backend.Application.Features.Orders.CreateOrder;
 using ERP.Backend.Application.Features.Orders.DeleteOrder;
 using ERP.Backend.Application.Features.Orders.GetAllOrder;
+using ERP.Backend.Application.Features.Orders.RequirementsPlanningByOrderId;
 using ERP.Backend.Application.Features.Orders.UpdateOrder;
 using ERP.Backend.WebAPI.Abstractions;
 using MediatR;
@@ -44,6 +45,14 @@ namespace ERP.Backend.WebAPI.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Update(UpdateOrderCommand request, CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(request, cancellationToken);
+
+            return StatusCode(response.StatusCode, response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RequirementsPlanningByOrderId(RequirementsPlanningByOrderIdCommand request, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(request, cancellationToken);
 
