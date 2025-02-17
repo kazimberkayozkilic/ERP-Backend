@@ -17,7 +17,7 @@ namespace ERP.Backend.Application.Features.Orders.RequirementsPlanningByOrderId
         public async Task<Result<RequirementsPlanningByOrderIdCommandResponse>> Handle(RequirementsPlanningByOrderIdCommand request, CancellationToken cancellationToken)
         {
             Order? order = await orderReporsitory
-                .Where(p => p.Id == request.Id)
+                .Where(p => p.Id == request.OrderId)
                 .Include(p => p.Details!)
                 .ThenInclude(p => p.Product)
                 .FirstOrDefaultAsync(cancellationToken);
@@ -39,7 +39,7 @@ namespace ERP.Backend.Application.Features.Orders.RequirementsPlanningByOrderId
                     {
                         ProductDto uretilmesiGerekenUrun = new()
                         {
-                            Id = item.Id,
+                            Id = item.ProductId,
                             Name = item.Product!.Name,
                             Quantity = item.Quantity,
                         };
