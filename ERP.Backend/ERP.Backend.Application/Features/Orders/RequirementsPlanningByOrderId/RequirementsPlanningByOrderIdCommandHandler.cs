@@ -1,10 +1,13 @@
 ﻿using ERP.Backend.Domain.Dtos;
 using ERP.Backend.Domain.Entities;
+using ERP.Backend.Domain.Enums;
 using ERP.Backend.Domain.Repositories;
+using GenericRepository;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +15,7 @@ using TS.Result;
 
 namespace ERP.Backend.Application.Features.Orders.RequirementsPlanningByOrderId
 {
-    internal sealed class RequirementsPlanningByOrderIdCommandHandler(IOrderReporsitory orderReporsitory, IRecipeRepository recipeRepository, IStockMovementRepository stockMovementRepository) : IRequestHandler<RequirementsPlanningByOrderIdCommand, Result<RequirementsPlanningByOrderIdCommandResponse>>
+    internal sealed class RequirementsPlanningByOrderIdCommandHandler(IOrderReporsitory orderReporsitory, IUnitOfWork unitOfWork , IRecipeRepository recipeRepository, IStockMovementRepository stockMovementRepository) : IRequestHandler<RequirementsPlanningByOrderIdCommand, Result<RequirementsPlanningByOrderIdCommandResponse>>
     {
         public async Task<Result<RequirementsPlanningByOrderIdCommandResponse>> Handle(RequirementsPlanningByOrderIdCommand request, CancellationToken cancellationToken)
         {
@@ -74,6 +77,11 @@ namespace ERP.Backend.Application.Features.Orders.RequirementsPlanningByOrderId
                 }
             }
 
+            requirementsPlanningProduct = requirementsPlanningProduct.GroupBy(p => p.Id).Select(g => new ProductDto { Id = g.Key, Name = g.First().Name, Quantity = g.Sum(p => p.Quantity) }).ToList();
+
+            order.Status = OrderStatüsEnum.RequirementsPlanWorked;
+            orderReporsitory.Update(order);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
             return new RequirementsPlanningByOrderIdCommandResponse(DateOnly.FromDateTime(DateTime.Now), order.Number + "Nolu Siparişin İhtiyaç Planlaması", new(requirementsPlanningProduct));
         }
     }
