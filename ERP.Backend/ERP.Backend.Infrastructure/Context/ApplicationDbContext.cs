@@ -20,6 +20,9 @@ namespace ERP.Backend.Infrastructure.Context
         public DbSet<Order> Orders{ get; set; }
         public DbSet<OrderDetail> OrderDetails{ get; set; }
         public DbSet<StockMovement> StockMovement { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceDetail> InvoicesDetails { get; set; }
+
 
 
 
