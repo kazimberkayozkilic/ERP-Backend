@@ -1,1 +1,1 @@
-﻿public sealed record InvoiceDetailDto(Guid ProductId, decimal Quantity, decimal Price);
+﻿public sealed record InvoiceDetailDto(Guid ProductId, Guid DepotId ,decimal Quantity, decimal Price);
