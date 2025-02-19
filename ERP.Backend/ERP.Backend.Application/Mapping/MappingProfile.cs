@@ -3,6 +3,7 @@ using ERP.Backend.Application.Features.Customers.CreateCustomer;
 using ERP.Backend.Application.Features.Customers.UpdateCustomer;
 using ERP.Backend.Application.Features.Depots.CreateDepot;
 using ERP.Backend.Application.Features.Depots.UpdateDepot;
+using ERP.Backend.Application.Features.Invoices.CreateInvoices;
 using ERP.Backend.Application.Features.Orders.CreateOrder;
 using ERP.Backend.Application.Features.Orders.UpdateOrder;
 using ERP.Backend.Application.Features.Products.CreateProduct;
@@ -27,6 +28,17 @@ namespace ERP.Backend.Application.Mapping
             CreateMap<CreateRecipeDetailCommand, RecipeDetail>();
             CreateMap<UpdateRecipeDetailCommand, RecipeDetail>();
             CreateMap<CreateOrderCommand, Order>().ForMember(member => member.Details, options => options.MapFrom(p => p.Details.Select(s => new OrderDetail
+            {
+                Price = s.Price,
+                ProductId = s.ProductId,
+                Quantity = s.Quantity
+            }).ToList()));
+            CreateMap<UpdateOrderCommand, Order>()
+           .ForMember(member =>
+           member.Details,
+           options => options.Ignore());
+
+            CreateMap<CreateInvoiceCommand, Invoice>().ForMember(member => member.Type, options => options.MapFrom(p => InvoinceTypeEnum.FromValue(p.Type))).ForMember(member => member.Details, options => options.MapFrom(p => p.Details.Select(s => new InvoiceDetail
             {
                 Price = s.Price,
                 ProductId = s.ProductId,
