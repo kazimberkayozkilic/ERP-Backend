@@ -1,6 +1,8 @@
-﻿using ERP.Backend.Domain.Repositories;
+﻿using ERP.Backend.Domain.Entities;
+using ERP.Backend.Domain.Repositories;
 using GenericRepository;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ using TS.Result;
 
 namespace ERP.Backend.Application.Features.Invoices.DeleteInvoiceById
 {
-    internal sealed class DeleteInvoiceByIdCommandHandler(IInvoiceRepository invoiceRepository, IUnitOfWork unitOfWork) : IRequestHandler<DeleteInvoiceByIdCommand, Result<string>>
+    internal sealed class DeleteInvoiceByIdCommandHandler(IInvoiceRepository invoiceRepository, IStockMovementRepository stockMovementRepository ,IUnitOfWork unitOfWork) : IRequestHandler<DeleteInvoiceByIdCommand, Result<string>>
     {
         public async Task<Result<string>> Handle(DeleteInvoiceByIdCommand request, CancellationToken cancellationToken)
         {
@@ -19,6 +21,8 @@ namespace ERP.Backend.Application.Features.Invoices.DeleteInvoiceById
             {
                 return Result<string>.Failure("Fatura bulunamadı");
             }
+            List<StockMovement> movements = await stockMovementRepository.Where(p => p.InvoiceId == invoice.Id).ToListAsync(cancellationToken);
+            stockMovementRepository.DeleteRange(movements);
             invoiceRepository.Delete(invoice);
             await unitOfWork.SaveChangesAsync(cancellationToken);
             return "Fatura başarıyla silindi.";
