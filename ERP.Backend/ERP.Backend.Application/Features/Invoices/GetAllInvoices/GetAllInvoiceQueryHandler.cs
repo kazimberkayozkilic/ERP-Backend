@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ERP.Backend.Application.Features.Invoices
+namespace ERP.Backend.Application.Features.Invoices.GetAllInvoices
 {
     internal sealed class GetAllInvoiceQueryHandler(IInvoiceRepository invoiceRepository) : IRequestHandler<GetAllInvoiceQuery, List<Invoice>>
     {
