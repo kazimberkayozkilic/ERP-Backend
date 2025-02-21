@@ -50,8 +50,7 @@ namespace ERP.Backend.Application.Mapping
            .ForMember(member =>
            member.Details,
            options => options.Ignore());
-
-            CreateMap<UpdateInvoiceCommand, Order>()
+            CreateMap<UpdateInvoiceCommand, Invoice>()
            .ForMember(member =>
            member.Details,
            options => options.Ignore());
