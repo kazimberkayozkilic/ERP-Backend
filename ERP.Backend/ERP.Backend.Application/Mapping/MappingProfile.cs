@@ -38,7 +38,7 @@ namespace ERP.Backend.Application.Mapping
            member.Details,
            options => options.Ignore());
 
-            CreateMap<CreateInvoiceCommand, Invoice>().ForMember(member => member.Type, options => options.MapFrom(p => InvoinceTypeEnum.FromValue(p.Type))).ForMember(member => member.Details, options => options.MapFrom(p => p.Details.Select(s => new InvoiceDetail
+            CreateMap<CreateInvoiceCommand, Invoice>().ForMember(member => member.Type, options => options.MapFrom(p => InvoinceTypeEnum.FromValue(p.TypeValue))).ForMember(member => member.Details, options => options.MapFrom(p => p.Details.Select(s => new InvoiceDetail
             {
                 Price = s.Price,
                 ProductId = s.ProductId,

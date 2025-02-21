@@ -8,6 +8,6 @@ using TS.Result;
 
 namespace ERP.Backend.Application.Features.Invoices.UpdateInvoice
 {
-    public sealed record UpdateInvoiceCommand(Guid Id, Guid CustomerId, int Type, DateOnly Date, string InvoiceNumber, List<InvoiceDetailDto> Details) : IRequest<Result<string>>;
+    public sealed record UpdateInvoiceCommand(Guid Id, Guid CustomerId, DateOnly Date, string InvoiceNumber, List<InvoiceDetailDto> Details) : IRequest<Result<string>>;
    
 }
