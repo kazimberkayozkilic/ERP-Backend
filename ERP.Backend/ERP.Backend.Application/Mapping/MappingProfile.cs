@@ -43,6 +43,7 @@ namespace ERP.Backend.Application.Mapping
             {
                 Price = s.Price,
                 ProductId = s.ProductId,
+                DepotId = s.DepotId,
                 Quantity = s.Quantity
             }).ToList()));
             CreateMap<UpdateOrderCommand, Order>()
