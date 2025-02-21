@@ -19,8 +19,8 @@ internal sealed class CreateOrderCommandHandler(IInvoiceRepository invoiceReposi
                 StockMovement movement = new()
                 {
                     InvoiceId = item.InvoiceId,
-                    NumberOfEntries = request.Type == 1 ? item.Quantity : 0,
-                    NumberOfOutputs = request.Type == 2 ? item.Quantity : 0,
+                    NumberOfEntries = request.TypeValue == 1 ? item.Quantity : 0,
+                    NumberOfOutputs = request.TypeValue == 2 ? item.Quantity : 0,
                     DepotId = item.DepotId,
                     Price = item.Price,
                     ProductId = item.ProductId
