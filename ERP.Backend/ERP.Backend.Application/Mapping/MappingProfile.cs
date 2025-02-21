@@ -4,6 +4,7 @@ using ERP.Backend.Application.Features.Customers.UpdateCustomer;
 using ERP.Backend.Application.Features.Depots.CreateDepot;
 using ERP.Backend.Application.Features.Depots.UpdateDepot;
 using ERP.Backend.Application.Features.Invoices.CreateInvoices;
+using ERP.Backend.Application.Features.Invoices.UpdateInvoice;
 using ERP.Backend.Application.Features.Orders.CreateOrder;
 using ERP.Backend.Application.Features.Orders.UpdateOrder;
 using ERP.Backend.Application.Features.Products.CreateProduct;
@@ -45,6 +46,11 @@ namespace ERP.Backend.Application.Mapping
                 Quantity = s.Quantity
             }).ToList()));
             CreateMap<UpdateOrderCommand, Order>()
+           .ForMember(member =>
+           member.Details,
+           options => options.Ignore());
+
+            CreateMap<UpdateInvoiceCommand, Order>()
            .ForMember(member =>
            member.Details,
            options => options.Ignore());
