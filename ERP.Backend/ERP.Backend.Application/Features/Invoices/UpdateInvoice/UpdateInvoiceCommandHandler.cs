@@ -14,11 +14,12 @@ using TS.Result;
 
 namespace ERP.Backend.Application.Features.Invoices.UpdateInvoice
 {
-    internal sealed class UpdateInvoiceCommandHandler(IInvoiceRepository invoiceRepository,
-    IInvoiceDetailRepository invoiceDetailRepository,
-    IStockMovementRepository stockMovementRepository,
-    IUnitOfWork unitOfWork,
-    IMapper mapper) : IRequestHandler<UpdateInvoiceCommand, Result<string>>
+    internal sealed class UpdateInvoiceCommandHandler(
+     IInvoiceRepository invoiceRepository,
+     IInvoiceDetailRepository invoiceDetailRepository,
+     IStockMovementRepository stockMovementRepository,
+     IUnitOfWork unitOfWork,
+     IMapper mapper) : IRequestHandler<UpdateInvoiceCommand, Result<string>>
     {
         public async Task<Result<string>> Handle(UpdateInvoiceCommand request, CancellationToken cancellationToken)
         {
