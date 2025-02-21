@@ -1,4 +1,5 @@
-﻿using ERP.Backend.Domain.Repositories;
+﻿using ERP.Backend.Domain.Enums;
+using ERP.Backend.Domain.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,7 +15,7 @@ namespace ERP.Backend.Application.Features.Invoices.GetAllInvoices
     {
         public async Task<Result<List<Invoice>>> Handle(GetAllInvoiceQuery request, CancellationToken cancellationToken)
         {
-            List<Invoice> invoices = await invoiceRepository.Where(p => p.Type.Value == request.Type).OrderBy(p => p.Date).ToListAsync(cancellationToken);
+            List<Invoice> invoices = await invoiceRepository.Where(p => p.Type == InvoinceTypeEnum.FromValue(request.Type)).Include(p => p.Customer).Include(p => p.Details!).ThenInclude( p => p.Product).Include(p => p.Details!).ThenInclude(p => p.Depot).OrderBy(p => p.Date).ToListAsync(cancellationToken);
             return invoices;
         }
     }
