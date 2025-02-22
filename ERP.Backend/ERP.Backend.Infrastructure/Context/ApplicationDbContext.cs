@@ -23,7 +23,7 @@ namespace ERP.Backend.Infrastructure.Context
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<InvoiceDetail> InvoicesDetails { get; set; }
 
-
+        public DbSet<Production> Productions{ get; set; }
 
 
 
