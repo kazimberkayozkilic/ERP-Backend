@@ -7,6 +7,7 @@ using ERP.Backend.Application.Features.Invoices.CreateInvoices;
 using ERP.Backend.Application.Features.Invoices.UpdateInvoice;
 using ERP.Backend.Application.Features.Orders.CreateOrder;
 using ERP.Backend.Application.Features.Orders.UpdateOrder;
+using ERP.Backend.Application.Features.Productions.CreateProduction;
 using ERP.Backend.Application.Features.Products.CreateProduct;
 using ERP.Backend.Application.Features.Products.UpdateProduct;
 using ERP.Backend.Application.Features.RecipeDetails.CreateRecipeDetail;
@@ -54,6 +55,8 @@ namespace ERP.Backend.Application.Mapping
            .ForMember(member =>
            member.Details,
            options => options.Ignore());
+
+            CreateMap<CreateProductionCommand, Production>();
         }
     }
 }
