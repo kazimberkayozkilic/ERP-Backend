@@ -15,7 +15,7 @@ namespace ERP.Backend.Application.Features.Productions.GetAllProduction
     {
         public async Task<Result<List<Production>>> Handle(GetAllProductionQuery request, CancellationToken cancellationToken)
         {
-            List<Production> productions = await productionRepository.GetAll().OrderByDescending(p => p.CreatedAt).ToListAsync(cancellationToken);
+            List<Production> productions = await productionRepository.GetAll().Include(p => p.Product).Include(p => p.Depot).OrderByDescending(p => p.CreatedAt).ToListAsync(cancellationToken);
             return productions;
         }
     }
