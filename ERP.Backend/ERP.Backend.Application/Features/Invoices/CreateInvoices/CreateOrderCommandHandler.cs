@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using ERP.Backend.Application.Features.Invoices.CreateInvoices;
 using ERP.Backend.Domain.Entities;
+using ERP.Backend.Domain.Enums;
 using ERP.Backend.Domain.Repositories;
 using GenericRepository;
 using MediatR;
 using TS.Result;
 
-internal sealed class CreateOrderCommandHandler(IInvoiceRepository invoiceRepository, IStockMovementRepository stockMovementRepository ,IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<CreateInvoiceCommand, Result<string>>
+internal sealed class CreateOrderCommandHandler(IInvoiceRepository invoiceRepository, IOrderReporsitory orderReporsitory , IStockMovementRepository stockMovementRepository ,IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<CreateInvoiceCommand, Result<string>>
 {
     public async Task<Result<string>> Handle(CreateInvoiceCommand request, CancellationToken cancellationToken)
     {
@@ -30,6 +31,16 @@ internal sealed class CreateOrderCommandHandler(IInvoiceRepository invoiceReposi
              await stockMovementRepository.AddRangeAsync(movements, cancellationToken);
         }
         await invoiceRepository.AddAsync(invoice, cancellationToken);
+
+        if(request.OrderId is not null)
+        {
+            Order order = await orderReporsitory.GetByExpressionWithTrackingAsync(p => p.Id == request.OrderId, cancellationToken);
+            if(order != null)
+            {
+                order.Status = OrderStatüsEnum.Completed;
+            }
+        }
+
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return "Fatura basarıyla olusturuldu.";
     }
