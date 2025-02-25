@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ERP.Backend.Domain.Entities;
+using ERP.Backend.Domain.Enums;
 using ERP.Backend.Domain.Repositories;
 using GenericRepository;
 using MediatR;
@@ -15,7 +16,7 @@ using TS.Result;
 namespace ERP.Backend.Application.Features.Invoices.UpdateInvoice
 {
     internal sealed class UpdateInvoiceCommandHandler(
-     IInvoiceRepository invoiceRepository,
+     IInvoiceRepository invoiceRepository, IOrderReporsitory orderReporsitory,
      IInvoiceDetailRepository invoiceDetailRepository,
      IStockMovementRepository stockMovementRepository,
      IUnitOfWork unitOfWork,
@@ -73,7 +74,14 @@ namespace ERP.Backend.Application.Features.Invoices.UpdateInvoice
             }
 
             await stockMovementRepository.AddRangeAsync(newMovements, cancellationToken);
-
+            if (request.OrderId is not null)
+            {
+                Order order = await orderReporsitory.GetByExpressionWithTrackingAsync(p => p.Id == request.OrderId, cancellationToken);
+                if (order != null)
+                {
+                    order.Status = OrderStatüsEnum.Completed;
+                }
+            }
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
             return "Fatura başarıyla güncelleştirildi";
