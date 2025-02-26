@@ -10,5 +10,6 @@ using TS.Result;
 namespace ERP.Backend.Application.Features.Products.GetAllProduct
 {
     public sealed record GetAllProductQuery() : IRequest<Result<List<Product>>>;
-    
+
+
 }
