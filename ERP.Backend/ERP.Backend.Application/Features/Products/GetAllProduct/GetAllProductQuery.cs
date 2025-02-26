@@ -1,15 +1,8 @@
-﻿using ERP.Backend.Domain.Entities;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 using TS.Result;
+using System.Collections.Generic;
 
 namespace ERP.Backend.Application.Features.Products.GetAllProduct
 {
-    public sealed record GetAllProductQuery() : IRequest<Result<List<Product>>>;
-
-
+    public sealed record GetAllProductQuery() : IRequest<Result<List<GetAllProductQueryResponse>>>;
 }
